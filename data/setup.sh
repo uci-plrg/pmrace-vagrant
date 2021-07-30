@@ -9,18 +9,23 @@ USELLVMBIN=false
 git clone https://github.com/uci-plrg/jaaru.git
 mv jaaru pmcheck
 cd pmcheck/
-git checkout vagrant
+git checkout pmrace
 cd ..
 
 git clone https://github.com/uci-plrg/nvm-benchmarks.git
 cd nvm-benchmarks
-git checkout vagrant
+git checkout pmrace
+rm -rf redis
+git clone https://github.com/uci-plrg/memcached
+git checkout pmrace
+git clone https://github.com/uci-plrg/redis.git
+git checkout pmrace
 cd ..
 
 git clone https://github.com/uci-plrg/jaaru-pmdk.git
 mv jaaru-pmdk pmdk
 cd pmdk
-git checkout vagrant
+git checkout pmrace
 cd ..
 
 if ! $USELLVMBIN
@@ -53,7 +58,6 @@ else
 	rm llvm-project.tar.gz
 fi
 
-
 # 3. Compiling Jaaru (PMCheck) with default libpmem API
 cd pmcheck/
 sed -i 's/LLVMDIR=.*/LLVMDIR=~\/llvm-project\//g' Test/gcc
@@ -61,17 +65,14 @@ sed -i 's/JAARUDIR=.*/JAARUDIR=~\/pmcheck\/bin\//g' Test/gcc
 
 sed -i 's/LLVMDIR=.*/LLVMDIR=~\/llvm-project\//g' Test/g++
 sed -i 's/JAARUDIR=.*/JAARUDIR=~\/pmcheck\/bin\//g' Test/g++
-make
 make test
 cd ~/
 
 # 4. Building PMDK
 cd pmdk
-sed -i 's/CXX=\/.*/CXX=~\/pmcheck\/Test\/g++/g' src/common.inc
-sed -i 's/CC=\/.*/CC=~\/pmcheck\/Test\/gcc/g' src/common.inc
 sed -i 's/export LD_LIBRARY_PATH=.*/export LD_LIBRARY_PATH=~\/pmcheck\/bin\//g' src/examples/libpmemobj/map/run.sh
 sed -i 's/export DYLD_LIBRARY_PATH=.*/export DYLD_LIBRARY_PATH=~\/pmcheck\/bin\//g' src/examples/libpmemobj/map/run.sh
-make
+make EXTRA_CFLAGS_RELEASE="-ggdb -fno-omit-frame-pointer -O0"
 cd ~/
 
 # 5. Compiling Jaaru (PMCheck) with libvmmalloc configuration
@@ -81,7 +82,6 @@ sed -i 's/JAARUDIR=.*/JAARUDIR=~\/pmcheck-vmem\/bin\//g' Test/gcc
 sed -i 's/JAARUDIR=.*/JAARUDIR=~\/pmcheck-vmem\/bin\//g' Test/g++
 sed -i 's/.*\#define ENABLE_VMEM.*/\#define ENABLE_VMEM/g' config.h
 make clean
-make
 make test
 cd ~/
 
@@ -110,9 +110,21 @@ for bench in $RECIPE_BENCH; do
         sed -i 's/export DYLD_LIBRARY_PATH=.*/export DYLD_LIBRARY_PATH=~\/pmcheck-vmem\/bin\//g' run.sh
         cd ..
 done
+cd ..
 
-# 7. Copying the generator scritps
+# 7. Initializing redis
+cd redis
+sed -i 's/export LD_LIBRARY_PATH=.*/export LD_LIBRARY_PATH=~\/pmcheck\/bin\/:~\/pmdk\/src\/debug\//g' run.sh
+sed -i 's/export DYLD_LIBRARY_PATH=.*/export DYLD_LIBRARY_PATH=~\/pmcheck\/bin\/:~\/pmdk\/src\/debug\//g' run.sh
+cd ..
+
+# 8. Initializing Memcached
+cd memcached
+sed -i 's/export LD_LIBRARY_PATH=.*/export LD_LIBRARY_PATH=~\/pmcheck\/bin\/:~\/pmdk\/src\/debug\//g' run.sh
+sed -i 's/export DYLD_LIBRARY_PATH=.*/export DYLD_LIBRARY_PATH=~\/pmcheck\/bin\/:~\/pmdk\/src\/debug\//g' run.sh
+cd ..
+
+# 9. Copying the generator scritps
 cd ~/
-cp /vagrant/data/recipe-bugs.sh ~/
-cp /vagrant/data/recipe-perf.sh ~/
-cp /vagrant/data/pmdk-bugs.sh ~/
+cp /vagrant/data/*.sh ~/
+cp -r /vagrant/data/testcase ~/

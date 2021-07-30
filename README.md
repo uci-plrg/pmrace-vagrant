@@ -1,8 +1,8 @@
-# Jaaru on Vagrant (Artifact Evaluation)
+# PMRace on Vagrant (Artifact Evaluation)
 
-This artifact contains a vagrant repository that downloads and compiles the source code for Jaaru, its companion compiler pass, and benchmarks.  The artifact enables users to reproduce the bugs that are found by Jaaru in [PMDK](https://github.com/uci-plrg/jaaru-pmdk) and [RECIPE](https://github.com/uci-plrg/nvm-benchmarks/tree/vagrant/RECIPE) as well as performance results to compare Jaaru with Yat, a naive persistent memory model checker.
+This artifact contains a vagrant repository that downloads and compiles the source code for PMRace (a plugin for Jaaru), its companion compiler pass, and benchmarks.  The artifact enables users to reproduce the bugs that are found by PMRace in [PMDK](https://github.com/uci-plrg/jaaru-pmdk) and [RECIPE](https://github.com/uci-plrg/nvm-benchmarks/tree/vagrant/RECIPE) as well as performance results to compare PMRace with Jaaru, a persistent memory model checker.
 
-Our workflow has four primary parts: (1) creating a virtual machine and installing dependencies needed to reproduce our results, (2) downloading the source code of \tool and the benchmarks and building them, (3) providing the parameters corresponding to each bug to reproduce the bugs, and (4) running the benchmarks to compare Jaaru with the naive exhaustive approach (i.e., Yat). After the experiment, the corresponding output files are generated for each bug and each performance measurement.
+Our workflow has four primary parts: (1) creating a virtual machine and installing dependencies needed to reproduce our results, (2) downloading the source code of PMRace and the benchmarks and building them, (3) providing the parameters corresponding to each bug to reproduce the bugs, and (4) running the benchmarks to compare PMRace with the Jaaru (The underlying model checker). After the experiment, the corresponding output files are generated for each bug and each performance measurement.
 
 ## Step-by-step guidance
 
@@ -16,23 +16,23 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
     $ vagrant plugin install vagrant-disksize
 ```
 
-3. Clone this repository into the local machine and go to the *jaaru-vagrant* folder:
+3. Clone this repository into the local machine and go to the *pmrace-vagrant* folder:
 
 ```
-    $ git clone https://github.com/uci-plrg/jaaru-vagrant.git
-    $ cd jaaru-vagrant
+    $ git clone https://github.com/uci-plrg/pmrace-vagrant.git
+    $ cd pmrace-vagrant
 ```
 
-4. Use the following command to set up the virtual machine. Then, our scripts automatically downloads the source code for Jaaru, its LLVM pass, and PMDK and RECIPE. Then, it builds them and sets them up to be used. Finally, it copies the running script in the *home* directory of the virtual machine. 
+4. Use the following command to set up the virtual machine. Then, our scripts automatically downloads the source code for PMRace, its LLVM pass, and PMDK and RECIPE. Then, it builds them and sets them up to be used. Finally, it copies the running script in the *home* directory of the virtual machine. 
 
 ```
-    jaaru-vagrant $ vagrant up
+    pmrace-vagrant $ vagrant up
 ```
 
 5. After everything is set up, the virtual machine is up and the user can ssh to it by using the following command:
 
 ```
-    jaaru-vagrant $ vagrant ssh
+    pmrace-vagrant $ vagrant ssh
 ```
 
 6. After logging in into the VM, there are three script files in the 'home' directory. These scripts automatically run the corresponding benchmark and save the results in the *~/results* direcotory:
@@ -48,13 +48,13 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
 	vagrant@ubuntu-bionic:~$ ./recipe-perf.sh
 ```
 
-8. Run *recipe-bugs.sh* script to regenerate bugs in RECIPE that found by Jaaru. Then, it generates the corresponding log file for each bug in *~/results/recipe-bugs* directory.
+8. Run *recipe-bugs.sh* script to regenerate bugs in RECIPE that found by PMRace. Then, it generates the corresponding log file for each bug in *~/results/recipe-bugs* directory.
 
 ```
     vagrant@ubuntu-bionic:~$ ./recipe-bugs.sh
 ```
 
-9. Run *pmdk-bugs.sh* script to regenerate bugs in PMDK that found by Jaaru. Then, it generates the corresponding log file for each bug in *~/results/pmdk-bugs* directory.
+9. Run *pmdk-bugs.sh* script to regenerate bugs in PMDK that found by PMRace. Then, it generates the corresponding log file for each bug in *~/results/pmdk-bugs* directory.
 
 ```
     vagrant@ubuntu-bionic:~$ ./pmdk-bugs.sh
@@ -63,8 +63,8 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
 
 ## Disclaimer
 
-We make no warranties that Jaaru is free of errors. Please read the paper and the README file so that you understand what the tool is supposed to do.
+We make no warranties that PMRace is free of errors. Please read the paper and the README file so that you understand what the tool is supposed to do.
 
 ## Contact
 
-Please feel free to contact us for more information. Bug reports are welcome, and we are happy to hear from our users. Contact Hamed Gorjiara at [hgorjiar@uci.edu](mailto:hgorjiar@uci.edu), Harry Xu at [harryxu@g.ucla.edu](mailto:harryxu@g.ucla.edu), or Brian Demsky at [bdemsky@uci.edu](mailto:bdemsky@uci.edu) for any questions about Jaaru. 
+Please feel free to contact us for more information. Bug reports are welcome, and we are happy to hear from our users. Contact Hamed Gorjiara at [hgorjiar@uci.edu](mailto:hgorjiar@uci.edu), Harry Xu at [harryxu@g.ucla.edu](mailto:harryxu@g.ucla.edu), or Brian Demsky at [bdemsky@uci.edu](mailto:bdemsky@uci.edu) for any questions about PMRace. 
