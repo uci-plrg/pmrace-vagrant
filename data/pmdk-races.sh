@@ -1,11 +1,9 @@
 #!/bin/bash
 set -e
 ######################################## Defining variables
-#BENCHMARKDIR=~/pmdk
-#RESULTDIR=~/results
-BENCHMARKDIR=/scratch/nvm/pmdk
-RESULTDIR=/scratch/nvm/sosp21-ae/results
-BUGDIR=$RESULTDIR/pmdk-races
+BENCHMARKDIR=~/pmdk
+RESULTDIR=~/results
+BUGDIR=$RESULTDIR/pmdk
 LOGDIR=$BUGDIR/logs
 ######################################### Running Jaaru to find bugs
 cd $BENCHMARKDIR
@@ -13,12 +11,12 @@ mkdir -p $RESULTDIR
 rm -rf $BUGDIR
 mkdir $BUGDIR
 mkdir $LOGDIR
-cd ./src/examples/libpmemobj/map/
+cd $BENCHMARKDIR/src/examples/libpmemobj/map/
 # Creating run.sh
 echo '#!/bin/bash' > run.sh
 echo 'export NDCTL_ENABLE=n' >> run.sh
-echo 'export LD_LIBRARY_PATH=/scratch/nvm/pmcheck/bin/:/scratch/nvm/pmdk/src/debug' >> run.sh
-echo 'export DYLD_LIBRARY_PATH=/scratch/nvm/pmcheck/bin/' >> run.sh
+echo 'export LD_LIBRARY_PATH=~/pmcheck/bin/:~/pmdk/src/debug' >> run.sh
+echo 'export DYLD_LIBRARY_PATH=~/pmcheck/bin/' >> run.sh
 echo 'export PMCheck="-d$3 -y -x25 -r1000"' >> run.sh
 echo '$@' >> run.sh
 chmod +x run.sh
