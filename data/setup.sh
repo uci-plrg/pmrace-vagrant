@@ -72,7 +72,7 @@ cd ~/
 cd pmdk
 sed -i 's/export LD_LIBRARY_PATH=.*/export LD_LIBRARY_PATH=~\/pmcheck\/bin\//g' src/examples/libpmemobj/map/run.sh
 sed -i 's/export DYLD_LIBRARY_PATH=.*/export DYLD_LIBRARY_PATH=~\/pmcheck\/bin\//g' src/examples/libpmemobj/map/run.sh
-make EXTRA_CFLAGS_RELEASE="-ggdb -fno-omit-frame-pointer -O0"
+make EXTRA_CFLAGS_RELEASE="-ggdb -fno-omit-frame-pointer -O0" CC=~/pmcheck/Test/gcc CXX=~/pmcheck/Test/g++
 cd ~/
 
 # 5. Compiling Jaaru (PMCheck) with libvmmalloc configuration
