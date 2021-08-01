@@ -1,8 +1,8 @@
 #!/bin/bash
 if [[ $1 -eq 1 ]]
 then
-    echo "set x1 x1_v1"
-    echo "set x1 x1_v2"
+    echo "set x1 x1_v1\n"
+    echo "set x1 x1_v2\n"
     echo "incr counter"
     echo "incr counter"
     echo "incr counter"
@@ -10,10 +10,10 @@ then
     echo "incr counter"
     echo "incr counter"
     echo "incr counter"
-    echo "set x2 x2_v1"
+    echo "set x2 x2_v1\n"
     echo "ping"
     echo "incr counter"
-    echo "set x3 x3_v1"
+    echo "set x3 x3_v1\n"
 else
     echo "get x1"
     echo "get x2"

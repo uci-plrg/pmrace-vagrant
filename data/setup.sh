@@ -116,6 +116,10 @@ cd ..
 cd redis
 sed -i 's/export LD_LIBRARY_PATH=.*/export LD_LIBRARY_PATH=~\/pmcheck\/bin\/:~\/pmdk\/src\/debug\//g' run.sh
 sed -i 's/export DYLD_LIBRARY_PATH=.*/export DYLD_LIBRARY_PATH=~\/pmcheck\/bin\/:~\/pmdk\/src\/debug\//g' run.sh
+sed -i '27s/CC=.*/CC=~\/pmcheck\/Test\/gcc/g' src/Makefile
+rm deps/pmdk
+ln -s ~/pmdk deps/pmdk
+make USE_PMDK=yes STD=-std=gnu99
 cd ..
 
 # 8. Initializing Memcached
