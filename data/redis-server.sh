@@ -11,7 +11,9 @@ mkdir -p $RESULTDIR
 rm -rf $BUGDIR
 mkdir $BUGDIR
 mkdir $LOGDIR
-
+# Cleaning up data from previous executions if exist
+rm -f redis.pm
+rm -f dump.rdb
 # Run Server
 sed -i '6s/export PMCheck.*/export PMCheck="-d.\/redis.pm -x1 -p1 -y -e -r2000"/' run.sh
 BENCHMARKNAME=redis
