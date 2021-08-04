@@ -23,6 +23,7 @@ else
     echo "incr counter"
     echo "incr counter"
     echo "set x xvalues"
+    echo "set z zvalue"
     echo "get z"
     echo "get x"
     echo "get y"

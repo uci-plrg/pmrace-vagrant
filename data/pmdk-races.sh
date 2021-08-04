@@ -26,29 +26,29 @@ BENCHMARKNAME=btree
 echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 ./run.sh ./data_store $BENCHMARKNAME ./tmp.log 2 &> $TREELOG
-grep 'ERROR' $TREELOG | grep -v "example.cpp" &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log
 # Run ctree
 sed -i '5s/export PMCheck.*/export PMCheck="-d$3 -y -x100 -r1000"/' run.sh
 BENCHMARKNAME=ctree
 echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 ./run.sh ./data_store $BENCHMARKNAME ./tmp.log 2 &> $TREELOG
-grep 'ERROR' $TREELOG | grep -v "example.cpp" &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log
 # Run rbtree
 BENCHMARKNAME=rbtree
 echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 ./run.sh ./data_store $BENCHMARKNAME ./tmp.log 2 &> $TREELOG
-grep 'ERROR' $TREELOG | grep -v "example.cpp" &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log
 # Run hashmap_atomic
 BENCHMARKNAME=hashmap_atomic
 echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 ./run.sh ./data_store $BENCHMARKNAME ./tmp.log 2 &> $TREELOG
-grep 'ERROR' $TREELOG | grep -v "example.cpp" &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log
 # Run hashmap_tx
 BENCHMARKNAME=hashmap_tx
 echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 ./run.sh ./data_store $BENCHMARKNAME ./tmp.log 2 &> $TREELOG
-grep 'ERROR' $TREELOG | grep -v "example.cpp" &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log

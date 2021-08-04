@@ -15,9 +15,9 @@ mkdir $LOGDIR
 rm -f redis.pm
 rm -f dump.rdb
 # Run Server
-sed -i '6s/export PMCheck.*/export PMCheck="-d.\/redis.pm -x1 -p1 -y -e -r2000"/' run.sh
+sed -i '6s/export PMCheck.*/export PMCheck="-d.\/redis.pm -x2 -p1 -y -e -r2000"/' run.sh
 BENCHMARKNAME=redis
 echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 time ./run.sh ./src/redis-server ./redis.conf | tee $TREELOG
-grep 'ERROR' $TREELOG &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log
