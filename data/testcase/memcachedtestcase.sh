@@ -12,17 +12,20 @@ then
     echo "cas moo 0 0 6 0"
     echo "MOOVAL"
     echo "set nu 0 0 1"
+    echo "1"
     echo "incr nu 1"
     echo "incr nu 8"
     echo "decr nu 1"
     echo "quit"
-    echo "set foo1 0 0 6"
-    echo "foo1val"
+    echo "set boo 0 0 6"
+    echo "booval"
+    echo "shutdown";
 else
     echo "get foo"
     echo "get bar"
     echo "get moo"
     echo "get nu"
     echo "quit"
-    echo "shutdown"
-fi 
+    echo "shutdown";
+fi
+sleep 3;
