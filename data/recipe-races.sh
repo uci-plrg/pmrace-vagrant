@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 ######################################## Defining variables
-#BENCHMARKDIR=~/nvm-benchmarks/RECIPE
-#RESULTDIR=~/results
-BENCHMARKDIR=/scratch/nvm/benchmarks/RECIPE
-RESULTDIR=/scratch/nvm/sosp21-ae/results
-BUGDIR=$RESULTDIR/recipe-races
+BENCHMARKDIR=~/nvm-benchmarks/RECIPE
+RESULTDIR=~/results
+BUGDIR=$RESULTDIR/recipe
 RECIPEPERFFILE=$RESULTDIR/recipe.perf
 LOGDIR=$BUGDIR/logs
+GCCCOMPILER=/home/vagrant/pmcheck-vmem/Test/gcc
+GXXCOMPILER=/home/vagrant/pmcheck-vmem/Test/g++
 ######################################### Running Jaaru to find bugs
 cd $BENCHMARKDIR
 mkdir -p $RESULTDIR
@@ -77,7 +77,7 @@ mkdir build
 sed -i '18iset(ENABLE_CLWB 1)' CMakeLists.txt
 cd build
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
-cmake .. &> /dev/null
+cmake -D CMAKE_C_COMPILER=$GCCCOMPILER -D CMAKE_CXX_COMPILER=$GXXCOMPILER .. &> /dev/null
 make &> /dev/null
 sed -i '3iexport PMCheck="-y"' run.sh
 echo "Running $BENCHMARKNAME ..."
@@ -108,7 +108,7 @@ mkdir build
 sed -i '18iset(ENABLE_CLWB 1)' CMakeLists.txt
 cd build
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
-cmake .. &> /dev/null
+cmake -D CMAKE_C_COMPILER=$GCCCOMPILER -D CMAKE_CXX_COMPILER=$GXXCOMPILER .. &> /dev/null
 make &> /dev/null
 sed -i '3iexport PMCheck="-y"' run.sh
 echo "Running $BENCHMARKNAME ..."
@@ -138,7 +138,7 @@ mkdir build
 sed -i '19iset(ENABLE_CLWB 1)' CMakeLists.txt
 cd build
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
-cmake .. &> /dev/null
+cmake -D CMAKE_C_COMPILER=$GCCCOMPILER -D CMAKE_CXX_COMPILER=$GXXCOMPILER .. &> /dev/null
 make &> /dev/null
 sed -i '3iexport PMCheck="-y"' run.sh
 echo "Running $BENCHMARKNAME ..."
@@ -169,7 +169,7 @@ mkdir build
 sed -i '18iset(ENABLE_CLWB 1)' CMakeLists.txt
 cd build
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
-cmake .. &> /dev/null
+cmake -D CMAKE_C_COMPILER=$GCCCOMPILER -D CMAKE_CXX_COMPILER=$GXXCOMPILER .. &> /dev/null
 make &> /dev/null
 sed -i '3iexport PMCheck="-y"' run.sh
 echo "Running $BENCHMARKNAME ..."
