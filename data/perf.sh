@@ -191,6 +191,7 @@ run_redis() {
 	echo "Running $BENCHMARKNAME on Jaaru ..."
 	rm -f redis.pm
 	rm -f dump.rdb
+	cp $BENCHMARKDIR/run.sh $BENCHMARKDIR/run2.sh
 	sed -i '6s/export PMCheck.*/export PMCheck="-d.\/redis.pm -x1 -p1 -e -r2000"/' run.sh
 	sed -i '6s/export PMCheck.*/export PMCheck="-d.\/redis.pm -x1 -p1 -e -r2000"/' $BENCHMARKDIR/run2.sh
 	start=`date +%s.%N`
