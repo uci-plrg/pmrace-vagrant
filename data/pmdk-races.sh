@@ -34,6 +34,7 @@ echo "Running $BENCHMARKNAME ..."
 TREELOG=$LOGDIR/$BENCHMARKNAME-org.log
 ./run.sh ./data_store $BENCHMARKNAME ./tmp.log 2 &> $TREELOG
 grep 'ERROR' $TREELOG | grep -v "uninstrumented" &> $BUGDIR/$BENCHMARKNAME-races.log
+exit
 # Run rbtree
 BENCHMARKNAME=rbtree
 echo "Running $BENCHMARKNAME ..."

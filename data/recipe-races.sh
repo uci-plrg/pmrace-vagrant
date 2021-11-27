@@ -178,7 +178,7 @@ start=`date +%s.%N`
 end=`date +%s.%N`
 runtime=$( echo "$end - $start" | bc -l )
 echo "$BENCHMARKNAME        ${runtime} s" >> $RECIPEPERFFILE
-grep 'ERROR' $TREELOG | grep -v "example.cpp" &> $BUGDIR/$BENCHMARKNAME-races.log
+grep 'ERROR' $TREELOG | grep -v 'example.cpp\|uninstrumented' &> $BUGDIR/$BENCHMARKNAME-races.log
 # Now runing it with -x1 option
 sed -i '3d' run.sh
 sed -i '3iexport PMCheck="-y -x1"' run.sh
