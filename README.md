@@ -39,7 +39,7 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
     pmrace-vagrant $ vagrant up
 ```
 
-We highly recommend to use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) for running long-running commands if you don't have access to a reliable network.
+We highly recommend to use [tmux](https://github.com/tmux/tmux/wiki/Installing) for running long-running commands if you don't have access to a reliable network.
 
 **Note:** If you encountered `SSL certificate problem: certificate has expired` error, you can configure vagrant to install the ubuntu image without using SSL:
 ```
@@ -61,7 +61,7 @@ We highly recommend to use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy
     memcached-client.sh  nvm-benchmarks       pmcheck  pmdk          recipe-races.sh  redis-server.sh  testcase
 ```
 
-7. To generate performance results for Redis, Memcached, PMDK, and Recipe benchmark, run *perf.sh* script. When it finishes successfully, it generates the corresponding performance results in *~/results/performance* directory. **performance.out** contains average execution time for 100 random executions of the benchmarks on PMRace and Jaaru. In addition, it contains the number of bugs found w/ or w/o prefix-based expansion algorithm. We highly recommend to use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) for generating performance results.
+7. To generate performance results for Redis, Memcached, PMDK, and Recipe benchmark, run *perf.sh* script. When it finishes successfully, it generates the corresponding performance results in *~/results/performance* directory. **performance.out** contains average execution time for 100 random executions of the benchmarks on PMRace and Jaaru. In addition, it contains the number of bugs found w/ or w/o prefix-based expansion algorithm. We highly recommend to use [tmux](https://github.com/tmux/tmux/wiki/Installing) for generating performance results.
 
 ```
     vagrant@ubuntu-bionic:~$ ./perf.sh
@@ -91,7 +91,7 @@ Each of these files contain writes that are prone to persistency races followed 
     btree-races.log  ctree-races.log  logs
 ```
 
-10. Open two terminals. Run *redis-server.sh* in one terminal and in the other terminal run *redis-client.sh*. 
+10. Open two terminals. Run *redis-server.sh* in one terminal first, and then in the other terminal run *redis-client.sh*. 
 
 ```
     # Server terminal
@@ -119,9 +119,9 @@ Each of these files contain writes that are prone to persistency races followed 
    Press any keys to start Post-rash client..
 ```
 
-once you see *Post-Crash Execution 1* in the server's terminal, press any keys in the client's terminal to start the post-crash test case. Once you press any keys, so many persistency races are reported in the server's terminal. Rerun the *redis-client.sh* one more time after server prints "Pre-Crash Execution 2" to gracefully finish all executions in the server.
+once you see *Post-Crash Execution 1* in the server's terminal, press any keys in the client's terminal to start the post-crash test case. Once you press any keys, so many persistency races are reported in the server's terminal. Rerun the *redis-client.sh* one more time after server prints "Pre-Crash Execution 2" and press any keys once you see the message in the client's terminal to gracefully finish all executions in the server.
 
-11. Similar to Redis, open two terminals. Run *memcached-server.sh* in one terminal and in the other terminal run *memcached-client.sh*.
+11. Similar to Redis, open two terminals. Run *memcached-server.sh* in one terminal first, and then in the other terminal run *memcached-client.sh*.
 
 ```
     # Server terminal
@@ -150,7 +150,7 @@ once you see *Post-Crash Execution 1* in the server's terminal, press any keys i
 ```
 
 once you see *Post-Crash Execution 1* in the server's terminal, press any keys in the client's terminal to start the post-crash test case. Once you press any keys, so many persistency races are reported in the server's terminal. Rerun
- the *memcached-client.sh* one more time after server prints "Pre-Crash Execution 2" to gracefully finish all executions in the server.
+ the *memcached-client.sh* one more time after server prints "Pre-Crash Execution 2" and press any keys once you see the message in the client's terminal to gracefully finish all executions in the server.
 
 ## Disclaimer
 
