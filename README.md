@@ -11,8 +11,18 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
 2. Then, you need to download and install Vagrant, if we do not have Vagrant ready on our machine. Also, it is required to install *vagrant-disksize* plugin for vagrant to specify the size of the disk needed for the evaluation.
 
 ```
+    $ sudo apt update
     $ sudo apt-get install virtualbox
     $ sudo apt-get install vagrant
+    $ vagrant plugin install vagrant-disksize
+```
+
+**Note:** If you encountered `conflicting dependencies fog-core (~> 1.43.0) and fog-core (= 1.45.0)` error in installing `vagrant-disksize` plugin, you need to use the most recent version of vagrant:
+
+```
+    $ wget -c https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb
+    $ sudo dpkg -i vagrant_2.0.3_x86_64.deb
+    # Now install vagrant-disksize
     $ vagrant plugin install vagrant-disksize
 ```
 
@@ -29,6 +39,14 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
     pmrace-vagrant $ vagrant up
 ```
 
+We highly recommend to use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) for running long-running commands if you don't have access to a reliable network.
+
+**Note:** If you encountered `SSL certificate problem: certificate has expired` error, you can configure vagrant to install the ubuntu image without using SSL:
+```
+    $ vagrant box add ubuntu/bionic64 --insecure
+    $ vagrant up
+```
+
 5. After everything is set up, the virtual machine is up and the user can ssh to it by using the following command:
 
 ```
@@ -43,7 +61,7 @@ Our workflow has four primary parts: (1) creating a virtual machine and installi
     memcached-client.sh  nvm-benchmarks       pmcheck  pmdk          recipe-races.sh  redis-server.sh  testcase
 ```
 
-7. To generate performance results for Redis, Memcached, PMDK, and Recipe benchmark, run *perf.sh* script. When it finishes successfully, it generates the corresponding performance results in *~/results/performance* directory. **performance.out** contains average execution time for 100 random executions of the benchmarks on PMRace and Jaaru. In addition, it contains the number of bugs found w/ or w/o prefix-based expansion algorithm.
+7. To generate performance results for Redis, Memcached, PMDK, and Recipe benchmark, run *perf.sh* script. When it finishes successfully, it generates the corresponding performance results in *~/results/performance* directory. **performance.out** contains average execution time for 100 random executions of the benchmarks on PMRace and Jaaru. In addition, it contains the number of bugs found w/ or w/o prefix-based expansion algorithm. We highly recommend to use [tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) for generating performance results.
 
 ```
     vagrant@ubuntu-bionic:~$ ./perf.sh
