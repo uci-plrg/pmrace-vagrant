@@ -260,7 +260,7 @@ run_memcached() {
 	# Change pmcheck
 	PMRACEDIR=~/pmcheck
 	cd $PMRACEDIR
-	sed -i '331i    complete=true;' Model/model.cc
+	sed -i '338i    complete=true;' Model/model.cc
 	make
 	cd $BENCHMARKDIR
 	echo "Running $BENCHMARKNAME on PMRace ..."
