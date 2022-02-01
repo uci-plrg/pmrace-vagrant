@@ -1,4 +1,4 @@
-# PMRace on Vagrant (Artifact Evaluation)
+# Yashme (PMRace) on Vagrant (Artifact Evaluation)
 
 This artifact contains a vagrant repository that downloads and compiles the source code for PMRace (a plugin for Jaaru), its companion compiler pass, and benchmarks.  The artifact enables users to reproduce the bugs that are found by PMRace in [PMDK](https://github.com/uci-plrg/jaaru-pmdk), [RECIPE](https://github.com/uci-plrg/nvm-benchmarks/tree/vagrant/RECIPE), [Memcached](https://github.com/uci-plrg/memcached), and [Redis](https://github.com/uci-plrg/redis) as well as performance results to compare PMRace with Jaaru, the underlying persistent memory model checker.
 
